@@ -1,3 +1,8 @@
+
+<?php
+echo"hiiii";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
