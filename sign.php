@@ -1,6 +1,7 @@
 
 <?php
-echo"hiiii";
+    include "connect/config.php"
+
 ?>
 
 <!DOCTYPE html>
