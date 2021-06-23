@@ -1,6 +1,47 @@
 
 <?php
-    include "connect/config.php"
+    include "connect/config.php";
+
+    $conn = $pdo->open();
+
+
+    if(isset($_POST['first-name']) && !empty($_POST['first-name']) &&
+    isset($_POST['last-name']) && !empty($_POST['last-name']) &&
+    isset($_POST['email-mobile']) && !empty($_POST['email-mobile']) &&
+    isset($_POST['up-password']) && !empty($_POST['up-password']) &&
+    isset($_POST['birth-day']) && !empty($_POST['birth-day']) &&
+    isset($_POST['birth-month']) && !empty($_POST['birth-month']) &&
+    isset($_POST['birth-year']) && !empty($_POST['birth-year']) &&
+    isset($_POST['gen']) && !empty($_POST['gen'])) {
+
+        $upFirst = $_POST['first-name'];
+        $upLast = $_POST['last-name'];
+        $upEmailMobile = $_POST['email-mobile'];
+        $upPassword = $_POST['up-password'];
+        $birthDay = $_POST['birth-day'];
+        $birthMonth = $_POST['birth-month'];
+        $birthYear = $_POST['birth-year'];
+        $upGen = $_POST['gen'];
+        $birth = ''.$birthYear.'-'.$birthMonth.'-'.$birthDay.'';
+
+        echo $birth;
+    } 
+
+    else if (empty($_POST['first-name']) or empty($_POST['last-name']) or
+    empty($_POST['email-mobile']) or empty($_POST['up-password'])
+    or empty($_POST['bith-day']) or empty($_POST['bith-month']) 
+    or empty($_POST['bith-year']) or empty($_POST['gen'])) {
+        $error = "All Field are Required";
+    }
+    
+    else {
+        echo "User not found !";
+
+    }
+                                    
+
+
+
 
 ?>
 
@@ -10,7 +51,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partagi</title>
+    <title>Nawarni</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -20,7 +61,9 @@
                 <img src="assets/images/share_sign.png" alt="share_sign">
             </div>
             <div class="right-side">
-                <div class="error"></div>
+                <div class="error">
+                <?php if(!empty($error))  echo $error;?>
+                </div>
                     <h1 style="color:#212121;">Create an account</h1>
                     <div style="color:#212121;font-size:20px;" >it's free and always will be</div>
                     <!--Form start -->
