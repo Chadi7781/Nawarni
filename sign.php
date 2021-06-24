@@ -1,19 +1,11 @@
 
 <?php
-    include "connect/config.php";
 
-    $conn = $pdo->open();
+    require 'core/load.php';
 
 
-    if(isset($_POST['first-name']) && !empty($_POST['first-name']) &&
-    isset($_POST['last-name']) && !empty($_POST['last-name']) &&
-    isset($_POST['email-mobile']) && !empty($_POST['email-mobile']) &&
-    isset($_POST['up-password']) && !empty($_POST['up-password']) &&
-    isset($_POST['birth-day']) && !empty($_POST['birth-day']) &&
-    isset($_POST['birth-month']) && !empty($_POST['birth-month']) &&
-    isset($_POST['birth-year']) && !empty($_POST['birth-year']) &&
-    isset($_POST['gen']) && !empty($_POST['gen'])) {
-
+    if(isset($_POST['first-name']) && !empty($_POST['first-name'])) {
+        
         $upFirst = $_POST['first-name'];
         $upLast = $_POST['last-name'];
         $upEmailMobile = $_POST['email-mobile'];
@@ -21,18 +13,17 @@
         $birthDay = $_POST['birth-day'];
         $birthMonth = $_POST['birth-month'];
         $birthYear = $_POST['birth-year'];
-        $upGen = $_POST['gen'];
+
+        if(!empty($_POST['gen'])) {
+            $upGen = $_POST['gen'];
+        
+        }
         $birth = ''.$birthYear.'-'.$birthMonth.'-'.$birthDay.'';
 
         echo $birth;
     } 
 
-    else if (empty($_POST['first-name']) or empty($_POST['last-name']) or
-    empty($_POST['email-mobile']) or empty($_POST['up-password'])
-    or empty($_POST['bith-day']) or empty($_POST['bith-month']) 
-    or empty($_POST['bith-year']) or empty($_POST['gen'])) {
-        $error = "All Field are Required";
-    }
+  
     
     else {
         echo "User not found !";
@@ -58,7 +49,7 @@
     <div class="header"></div>
         <div class="main">
             <div class="left-side">
-                <img src="assets/images/share_sign.png" alt="share_sign">
+                <img src="assets/images/signPicture.png" alt="share_sign">
             </div>
             <div class="right-side">
                 <div class="error">
