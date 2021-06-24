@@ -19,8 +19,27 @@
         
         }
         $birth = ''.$birthYear.'-'.$birthMonth.'-'.$birthDay.'';
+        if(empty($upFirst) or empty($upLast) or empty($upEmailMobile) or empty($upGen)) {
+            $error = "All fields are required !";
+        }
+        else {
+            $firstName =  $loadFromUser->checkInput($upFirst);
+            $lastName =  $loadFromUser->checkInput($upLast);
+            $emailMobile =  $loadFromUser->checkInput($upEmailMobile);
+            $password =  $loadFromUser->checkInput($upPassword);
+            $screenName =  ''.$firstName.'_'.$lastName;
 
-        echo $birth;
+
+            if(DB::query("SELECT screenName FROM users WHERE screenName =:screenName", 
+            array(':screenName'=> $screenName))) {
+                $screenRand = rand();
+                $userLink = ''.$screenName.''.$screenRand.'';
+
+            }
+            else {
+                $userLink = $screenName;    
+            }
+        }
     } 
 
   
