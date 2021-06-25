@@ -11,6 +11,6 @@ $loadFromUser = new User($pdo);
 $loadFromUser = new Post($pdo);
 
 define("BASE_URL", "http://localhost/socialMedia");
-
+    
 
 ?>
