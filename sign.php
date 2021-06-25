@@ -1,6 +1,6 @@
 
 <?php
-
+    require 'connect/DB.php';
     require 'core/load.php';
 
 
@@ -13,6 +13,9 @@
         $birthDay = $_POST['birth-day'];
         $birthMonth = $_POST['birth-month'];
         $birthYear = $_POST['birth-year'];
+
+        //Hashage password
+        $passwordHash = password_hash($upPassword, PASSWORD_BCRYPT);
 
         if(!empty($_POST['gen'])) {
             $upGen = $_POST['gen'];
@@ -40,8 +43,8 @@
                 $userLink = $screenName;    
             }
 
-            if(!preg_match("^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9]+)*(\.[a-z]{2,3})$",$emailMobile)) {
-                if(!preg_match("^[0-12]{13}",$emailMobile)) {
+            if(!preg_match("^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9]+)*(\.[a-z]{2,3})$^",$emailMobile)) {
+                if(!preg_match("^[0-12]{13}^",$emailMobile)) {
                     $error = "Email id or Mobile number is not correct. Please tyr again";
                 }
             }
@@ -49,7 +52,7 @@
             else if(!filter_var($emailMobile)) {
                 $error = "Invalid email format.";
             }
-            else if(!strlen($firstName)  <= 20 && strlen($firstName) >= 2) {
+            else if(strlen($firstName)  > 20 || strlen($firstName) < 2) {
                 $error ="First Name must be between 2 and 20";
             }
             else if(strlen($password) < 5 && strlen($password) >= 60) {
@@ -60,7 +63,10 @@
                 $error = "Email is already exist.";
             }
             else {
-                $loadFromUser->create();
+                $loadFromUser->create('users', array('first-name',$firstName,'last-name'=>$lastName,
+                'email-mobile'=>$emailMobile,'password'=>$passwordHash,
+                "screenName"=>$screenName,"userLink"=>$userLink, 'birthday'=>$birth,
+                "gender"=>$upGen));
             }
 
 
@@ -75,7 +81,7 @@
         echo "User not found !";
 
     }
-                                    
+                      
 
 
 
