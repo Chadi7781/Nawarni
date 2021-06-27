@@ -73,6 +73,8 @@
                 $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
 
                 //setcookie('FBID', $token, time() + 60 )
+
+                echo "Hello my all =Hadil";
             }   
 
 
