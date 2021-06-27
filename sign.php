@@ -63,11 +63,17 @@
                 $error = "Email is already exist.";
             }
             else {
-                $loadFromUser->create('users', array('first-name',$firstName,'last-name'=>$lastName,
-                'email-mobile'=>$emailMobile,'password'=>$passwordHash,
+                $user_id = $loadFromUser->create('users', array('first_name'=>$firstName,'last_name'=>$lastName,
+                'email'=>$emailMobile,'password'=>$passwordHash,
                 "screenName"=>$screenName,"userLink"=>$userLink, 'birthday'=>$birth,
                 "gender"=>$upGen));
-            }
+      
+                $tsStrong = true;
+                $token = bin2hex(openssl_random_pseudo_bytes(64, $tsStrong));
+                $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
+
+                //setcookie('FBID', $token, time() + 60 )
+            }   
 
 
 
