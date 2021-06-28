@@ -44,8 +44,40 @@
             }
 
             if(!preg_match("^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9]+)*(\.[a-z]{2,3})$^",$emailMobile)) {
-                if(!preg_match("^[0-12]{13}^",$emailMobile)) {
+                if(!preg_match("^[0-12]{09}^",$emailMobile)) {
                     $error = "Email id or Mobile number is not correct. Please tyr again";
+                }
+                else {
+                    $mobile = strlen((string)$emailMobile);
+                    
+                    if($mobile != 8 ) {
+                        $error = "Mobile number is not valid.";
+                    }
+                    else if(strlen($password) < 5  || strlen($password) >=60) {
+                        $error = "Passowrd is not correct.";
+                    }
+                    else {
+
+                        if(DB::query("SELECT mobile FROM users WHERE mobile = :mobile",array(":mobile"=>$mobile))) {
+                            $error = "Mobile is already exist.";
+                        }
+                        else {
+                            $loadFromUser->create('users', array('first_name'=>$firstName,'last_name'=>$lastName,
+                            'mobile'=>$emailMobile,'password'=>$passwordHash,
+                            "screenName"=>$screenName,"userLink"=>$userLink, 'birthday'=>$birth,
+                            "gender"=>$upGen));
+
+                            $tsStrong = true;
+                            $token = bin2hex(openssl_random_pseudo_bytes(64, $tsStrong));
+                            $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
+            
+                           setcookie('FBID', $token, time() + 60 *60*24*7, '/', NULL, NULL, true );
+            
+                           //Redirect the user to index page
+                           header('Location: index.php');
+            
+                        }
+                    } 
                 }
             }
 
@@ -72,9 +104,11 @@
                 $token = bin2hex(openssl_random_pseudo_bytes(64, $tsStrong));
                 $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
 
-                //setcookie('FBID', $token, time() + 60 )
+               setcookie('FBID', $token, time() + 60 *60*24*7, '/', NULL, NULL, true );
 
-                echo "Hello my all =Hadil";
+               //Redirect the user to index page
+               header('Location: index.php');
+
             }   
 
 
