@@ -1,17 +1,20 @@
 @font-face {
-    font-family: 'SourceSansPro-ExtraLight'; /* Change to your font's name. */
-    src: url('../fonts/SourceSansPro-ExtraLight.ttf'); /* Change to match your font file's location. */
+    font-family: 'SourceSansPro-ExtraLight';
+    /* Change to your font's name. */
+    src: url('../fonts/SourceSansPro-ExtraLight.ttf');
+    /* Change to match your font file's location. */
 }
- 
+
 
 :root {
     --color-theme-primary: #9921e8;
-    
-    
-    
+
+
+
 }
+
 body {
-    font-family: "SourceSansPro-ExtraLight",sans-serif;
+    font-family: "SourceSansPro-ExtraLight", sans-serif;
     background-color: #E9EBEE;
     margin: 0;
     font-size: 16px;
@@ -21,7 +24,7 @@ body {
 .main {
     font-family: Arial, Helvetica, sans-serif;
     height: 100vh;
-    display:flex;
+    display: flex;
 }
 
 .left-side {
@@ -46,7 +49,7 @@ body {
 
 .text-field {
     height: 25px;
-    padding: 5px;
+    padding: 15px;
     border: 1px solid lightgray;
     border-radius: 5px;
     font-size: 16px;
@@ -54,7 +57,7 @@ body {
 
 .text-input {
     height: 25px;
-    padding: 5px;
+    padding: 15px;
     border: 1px solid lightgray;
     border-radius: 5px;
     font-size: 16px;
@@ -67,7 +70,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 30px white  inset !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 .bday {
@@ -84,6 +87,7 @@ input:-webkit-autofill:active {
     color: #141823;
     border-radius: 5px;
 }
+
 .gender-wrap {
     margin: 10px 0;
 }
@@ -96,7 +100,7 @@ input:-webkit-autofill:active {
     background: linear-gradient(#67ae55, #578843);
     background-color: #69a74e;
     box-shadow: inset 0 1px 1px #a4e388;
-    border-color: #3b6a22, #3b6e22, #2c5115 ;
+    border-color: #3b6a22, #3b6e22, #2c5115;
     padding: 10px 50px;
     border: 1px solid gray;
     border-radius: 5px;
@@ -115,7 +119,67 @@ input:-webkit-autofill:active {
         color: rgba(255, 255, 255, 0.9);
         font-size: 14px;
     */
-    
-    }
 
-    
+}
+
+
+.header {
+    font-family: 'Helvetica', Arial, sans-serif;
+    padding: 8px 15%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #3e5c9a;
+    color: white;
+    height: 95px;
+}
+
+.logo {
+    margin: auto 0;
+    font-size: 40px;
+    flex-basis: 50%;
+}
+
+.sign-in-form {
+    display: flex;
+    align-items: center;
+}
+
+.mobile-input {
+    margin-left: 10px;
+}
+
+.input-text {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.input-text-field {
+    background-color: #faffbd;;
+    border: none;
+    height: 20px;
+}
+.input-text-password {
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+.passowrd-input {
+    margin-left: 1rem;
+    margin-top: 20px;
+    margin-right: 1rem;
+}
+
+.forgotten-acc {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #9cb4d8;
+    cursor: pointer;
+}
+
+input.sign-in.login {
+    height: 30%;
+    background-color: #4267bc;
+    color: white;
+    border: none;
+    box-shadow: 0 0 1px black;
+    margin-top: 18px;
+    padding: 5px;
+}
