@@ -116,11 +116,71 @@
 
   
     
-    else {
-        echo "User not found !";
+   // else {
+   //     echo "User not found !";
 
+    //}
+      
+    
+    if(isset($_POST['in-email-mobile']) && !empty($_POST['in-email-mobile'])) {
+        $email_mobile = $_POST['in-email-mobile'];
+        $in_pass = $_POST['in-pass'];
+
+        if(!preg_match("^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9]+)*(\.[a-z]{2,3})$^",$emailMobile)) {
+            if(!preg_match("^[0-9]{8}^", $emailMobile)){
+                $error = "Email id or Mobile number is not correct. Please tyr again";
+            }else{
+                
+        if(DB::query("SELECT mobile FROM users WHERE mobile = :mobile",
+        array(":mobile"=>$email_mobile))) {
+
+            if(password_verify($in_pass, DB::query("SELECT password FROM users 
+            WHERE mobile = :mobile",array(":mobile "=> $email_mobile))[0]['password'])) {
+                
+                $user_id = DB::query('SELECT user_id FROM users WHERE mobile = :mobile', array(':mobile' => $email_mobile))[0]['user_id'];
+
+                $tsStrong = true;
+                $token = bin2hex(openssl_random_pseudo_bytes(64, $tsStrong));
+                $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
+
+                setcookie('FBID', $token, time() + 60 *60*24*7, '/', NULL, NULL, true );
+                header('Location : index.php');
+            }
+
+
+
+        }else {
+            $error = "User hasn't found.";
+        }
+            }
+            
+
+
+        }else{
+
+        if(DB::query("SELECT email FROM users WHERE email = :email",
+        array(":email"=>$email_mobile))) {
+
+            if(password_verify($in_pass, DB::query("SELECT password FROM users 
+            WHERE email = :email",array(":email "=> $email_mobile))[0]['password'])) {
+                
+                $user_id = DB::query('SELECT user_id FROM users WHERE email = :email', array(':email' => $email_mobile))[0]['user_id'];
+
+                $tsStrong = true;
+                $token = bin2hex(openssl_random_pseudo_bytes(64, $tsStrong));
+                $loadFromUser->create('token', array('token'=>$token,'user_id'=>$user_id));
+
+                setcookie('FBID', $token, time() + 60 *60*24*7, '/', NULL, NULL, true );
+                header('Location : index.php');
+            }
+
+
+
+        }else {
+            $error = "User hasn't found.";
+        }
+           
     }
-                      
 
 
 
